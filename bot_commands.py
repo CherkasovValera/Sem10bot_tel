@@ -53,3 +53,28 @@ async    def del_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     b = float(items[2])
 
     await update.message.reply_text(f'{a}/{b} = {a/b}')
+
+    from telegram import ReplyKeyboardMarkup
+from telegram.ext import ApplicationBuilder, CommandHandler
+
+keyboard = [['help','hello']]
+markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True)
+
+
+
+async def hello(update, context):
+    await update.message.reply_text(f'Hello', reply_markup=markup)
+
+
+if __name__ == '__main__':
+    app = ApplicationBuilder().token("5466100628:AAF6NEj5TVg-6ZDBTNhfH_5CH_5sLR_e8bI").build()
+
+app.add_handler(CommandHandler("hello", hello))
+app.run_polling()
+import logging
+logging.basicConfig(
+    filename = "log.txt",
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
